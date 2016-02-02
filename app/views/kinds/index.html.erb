@@ -1,0 +1,11 @@
+<h2>Список типов покупателей:</h2>
+<ul>
+<% @kinds.each do |k| %>
+  <li>
+    <%= k.name %>
+    <%= link_to "E", edit_kind_path(k) %>
+    <%= link_to "X", kind_path(k), method: :delete, data: { confirm: "Sure?" } %>
+  </li>
+<% end %>
+</ul>
+<%= link_to "New customer kind", new_kind_path %>
