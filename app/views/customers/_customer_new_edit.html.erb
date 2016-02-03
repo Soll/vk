@@ -1,0 +1,8 @@
+<%= form_for @customer do |c| %>
+  <%= collection_select(:customer, :kind_id, Kind.all, :id, :name) %><br>
+  <%= c.text_field :name %><br>
+  <%= c.text_field :adres %><br>
+  <%= c.text_field :phone %><br>
+  <%= c.text_field :comment %><br>
+  <%= c.button :submit %>
+<% end %>

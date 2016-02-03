@@ -1,0 +1,16 @@
+<h2>Список покупателей:</h2>
+<ul>
+<% @customers.each do |c| %>
+  <li>
+    <%= c.name %>
+    <%= c.kind.name %>
+    <%= c.adres %>
+    <%= c.phone %>
+    <%= c.comment %>
+    <%= link_to "Show", customer_path(c) %>
+    <%= link_to "E", edit_customer_path(c) %>
+    <%= link_to "X", customer_path(c), method: :delete, data: { confirm: "Sure?" } %>
+  </li>
+<% end %>
+</ul>
+<%= link_to "New customer", new_customer_path %>

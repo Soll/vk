@@ -1,0 +1,13 @@
+<h2>Список товаров:</h2>
+<ul>
+<% @items.each do |c| %>
+  <li>
+    <%= c.name %>
+    <%= c.description %>
+    <%= link_to "Show", item_path(c) %>
+    <%= link_to "E", edit_item_path(c) %>
+    <%= link_to "X", item_path(c), method: :delete, data: { confirm: "Sure?" } %>
+  </li>
+<% end %>
+</ul>
+<%= link_to "New customer", new_item_path %>

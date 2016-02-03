@@ -1,0 +1,42 @@
+<p>Информация о клиенте:<br>
+<strong><%= @customer.name %></strong><br />
+<%= @customer.kind.name %><br />
+<%= @customer.adres %><br />
+<%= @customer.phone %><br />
+<%= @customer.comment %><br />
+</p>
+<hr>
+<h3>Адреса доставки:</h3>
+
+<% if @customer.locations %>
+<ul>
+<% @customer.locations.each do |loc| %>
+  <% if loc.id %>  
+    <li>
+      <%= loc.adres %>
+      <%= loc.phone %>
+      <%= loc.comment %>
+      <%= link_to "Edit", customer_path(@customer, location_id: loc.id) %>
+      <%= link_to "Delete", location_path(loc.id), method: :delete, data: { confirm: "Удалить адрес?" } %>
+    </li> 
+  <% end %>
+<% end %>
+</ul>
+<% end %>
+
+<%= form_for @location do |l| %>
+  <%= l.text_field :adres %><br>
+  <%= l.text_field :phone %><br>
+  <%= l.text_field :comment %><br>
+  <%= l.text_field :customer_id, type: "hidden", value: @customer.id %><br>
+  <% if params[:location_id] %>
+    <%= l.submit "Редактировать" %>
+  <% else %>
+    <%= l.submit "Добавить" %>
+  <% end %>
+<% end %>
+
+<hr>
+<h3>Ценовые группы:</h3>
+
+<%= link_to "Home", root_path %>

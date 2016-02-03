@@ -1,4 +1,2 @@
-<%= form_for @kind do |k| %>
-  <%= k.text_field :name %>
-  <%= k.button :submit %>
-<% end %>
+<h3>Новый тип:</h3>
+<%= render partial: "kind_new_edit", locals: { kind: @kind } %>
