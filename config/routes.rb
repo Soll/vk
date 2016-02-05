@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 
-  resources :kinds, :customers, :items
+  resources :kinds, :customers, :items, :price_groups, :price_group_lines
   resources :locations, only: [:new, :create, :destroy, :update]
 
   # Example of regular route:

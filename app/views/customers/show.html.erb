@@ -38,5 +38,19 @@
 
 <hr>
 <h3>Ценовые группы:</h3>
+<% if @customer.price_group_id %>
+  <p>Текущая ценовая группа: <%= @customer.price_group.name %> </p>
+  <% @customer.price_group.price_group_lines.each do |lin| %>
+    <%= lin.item.name %>
+    <%= lin.amount %>
+    <%= lin.price %>
+  <% end %>
+<% else %>
+  <p>Ценовая группа не назначена!</p>
+<% end %>
+<%= form_for @customer do |c| %>
+  <%= collection_select(:customer, :price_group_id, PriceGroup.all, :id, :name) %>
+  <%= c.submit "Назначить!" %>
+<% end %>
 
 <%= link_to "Home", root_path %>

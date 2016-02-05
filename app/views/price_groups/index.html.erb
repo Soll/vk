@@ -1,0 +1,12 @@
+<h2>Список ценовых групп:</h2>
+<ul>
+<% @pgs.each do |c| %>
+  <li>
+    <%= c.name %>
+    <%= link_to "Show", price_group_path(c) %>
+    <%= link_to "E", edit_price_group_path(c) %>
+    <%= link_to "X", price_group_path(c), method: :delete, data: { confirm: "Sure?" } %>
+  </li>
+<% end %>
+</ul>
+<%= link_to "New customer", new_price_group_path %>

@@ -1,0 +1,27 @@
+<p>Информация о ценовой группе:<br>
+<%= @pg.name %><br />
+</p>
+<p>Содержание ценовой группы:</p>
+<% if @pg.price_group_lines %>
+  <% @pg.price_group_lines.each do |line| %>
+    <% if line.id %>
+      <%= line.item.name %>
+      <%= line.amount %>
+      <%= line.price %>
+      <%= link_to "Edit", price_group_path(@pg, pgl_id: line.id) %>
+      <%= link_to "Delete", price_group_line_path(line.id), method: :delete, data: { confirm: "Удалить?" } %>
+      <br>
+    <% end %>
+  <% end %>
+<% end %>
+<p>Добавление товара в ценовую группу:</p>
+
+<%= form_for @pgl do |new_line| %>
+  <%= collection_select(:price_group_line, :item_id, Item.all, :id, :name) %>
+  <%= new_line.text_field :amount %>
+  <%= new_line.text_field :price %>
+  <%= new_line.text_field :price_group_id, type: "hidden", value: @pg.id %>
+  <%= new_line.submit "Добавить" %>
+<% end %>
+
+<%= link_to "Home", root_path %>

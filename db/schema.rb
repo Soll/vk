@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160203111328) do
+ActiveRecord::Schema.define(version: 20160204052147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,12 +21,14 @@ ActiveRecord::Schema.define(version: 20160203111328) do
     t.string   "adres"
     t.string   "phone"
     t.string   "comment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "kind_id"
+    t.integer  "price_group_id"
   end
 
   add_index "customers", ["kind_id"], name: "index_customers_on_kind_id", using: :btree
+  add_index "customers", ["price_group_id"], name: "index_customers_on_price_group_id", using: :btree
 
   create_table "items", force: :cascade do |t|
     t.string   "name"
@@ -52,6 +54,27 @@ ActiveRecord::Schema.define(version: 20160203111328) do
 
   add_index "locations", ["customer_id"], name: "index_locations_on_customer_id", using: :btree
 
+  create_table "price_group_lines", force: :cascade do |t|
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "item_id"
+    t.integer  "price_group_id"
+    t.integer  "amount"
+    t.decimal  "price"
+  end
+
+  add_index "price_group_lines", ["item_id"], name: "index_price_group_lines_on_item_id", using: :btree
+  add_index "price_group_lines", ["price_group_id"], name: "index_price_group_lines_on_price_group_id", using: :btree
+
+  create_table "price_groups", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "customers", "kinds"
+  add_foreign_key "customers", "price_groups"
   add_foreign_key "locations", "customers"
+  add_foreign_key "price_group_lines", "items"
+  add_foreign_key "price_group_lines", "price_groups"
 end
